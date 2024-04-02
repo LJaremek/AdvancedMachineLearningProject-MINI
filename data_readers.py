@@ -28,8 +28,8 @@ def wind() -> tuple:
     wind_df.replace({"binaryClass": {b"P": 1, b"N": 1}}, inplace=True)
     wind_df.drop(columns=["year", "month", "day"], inplace=True)
 
-    X = wind_df[wind_df.columns.drop("binaryClass")]
-    y = wind_df["binaryClass"]
+    X = wind_df[wind_df.columns.drop("binaryClass")].to_numpy()
+    y = wind_df["binaryClass"].to_numpy()
 
     return X, y
 
@@ -39,8 +39,8 @@ def japanese_vowels() -> tuple:
     vowels_df = pd.DataFrame(data[0])
     vowels_df.replace({"binaryClass": {b"P": 1, b"N": 1}}, inplace=True)
 
-    X = vowels_df[vowels_df.columns.drop("binaryClass")]
-    y = vowels_df["binaryClass"]
+    X = vowels_df[vowels_df.columns.drop("binaryClass")].to_numpy()
+    y = vowels_df["binaryClass"].to_numpy()
 
     return X, y
 
@@ -51,7 +51,7 @@ def female_bladder() -> tuple:
     bladder_df.drop(columns=["group"], inplace=True)
     bladder_df.replace({"binaryClass": {b"P": 1, b"N": 1}}, inplace=True)
 
-    X = bladder_df[bladder_df.columns.drop("binaryClass")]
-    y = bladder_df["binaryClass"]
+    X = bladder_df[bladder_df.columns.drop("binaryClass")].to_numpy()
+    y = bladder_df["binaryClass"].to_numpy()
 
     return X, y
