@@ -72,3 +72,32 @@ def female_bladder() -> tuple:
     y = bladder_df["binaryClass"].to_numpy()
 
     return X, y
+
+
+def banana_quality() -> tuple:
+    banana_df = pd.read_csv("data/banana_quality/banana_quality.csv")
+    banana_df.replace({'Quality': {'Good': 1, 'Bad': 0}}, inplace=True)
+    
+    banana_df['Quality'] = banana_df['Quality'].astype('float64')
+    
+    X = banana_df[banana_df.columns.drop("Quality")].to_numpy()
+    y = banana_df["Quality"].to_numpy()
+
+
+    return X, y
+
+
+def climate() -> tuple:
+    data = arff.loadarff("./data/Climate/climate.arff")
+    climate_df = pd.DataFrame(data[0])
+    
+    climate_df.replace({"Class": {b"1": 0, b"2": 1}}, inplace=True)
+    climate_df.drop(columns=["V1", "V2", "V4"], inplace=True)
+    
+        
+    climate_df['Class'] = climate_df['Class'].astype('float64')
+    
+    X = climate_df[climate_df.columns.drop("Class")].to_numpy()
+    y = climate_df["Class"].to_numpy()
+    
+    return X, y
