@@ -72,3 +72,17 @@ def female_bladder() -> tuple:
     y = bladder_df["binaryClass"].to_numpy()
 
     return X, y
+
+
+def banana_quality() -> tuple:
+    banana_df = pd.read_csv("data/banana_quality/banana_quality.csv")
+    banana_df.replace({'Quality': {'Good': 1, 'Bad': 0}}, inplace=True)
+    
+    banana_df['Quality'] = banana_df['Quality'].astype('float64')
+    
+    X = banana_df[banana_df.columns.drop("Quality")].to_numpy()
+    y = banana_df["Quality"].to_numpy()
+
+
+    return X, y
+    
