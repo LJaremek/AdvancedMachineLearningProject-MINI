@@ -114,3 +114,18 @@ def diabetes() -> tuple:
     y = diabetes_df["class"].to_numpy()
     
     return X, y
+
+
+def biodegradable() -> tuple:
+    data = arff.loadarff("data/biodegradable/phpGUrE90.arff")
+    biodeg_df = pd.DataFrame(data[0])
+    
+    biodeg_df.replace({'Class': {b'2': 0, b'1': 1}}, inplace=True)
+    biodeg_df['Class'] = biodeg_df['Class'].astype('float64')
+    
+    biodeg_df.drop(columns=["V11", "V15", "V34", "V38", "V39", "V27", "V7", "V10", "V17", "V29"], inplace=True)
+    
+    X = biodeg_df[biodeg_df.columns.drop("Class")].to_numpy()
+    y = biodeg_df["Class"].to_numpy()
+    
+    return X, y
