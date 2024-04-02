@@ -85,4 +85,19 @@ def banana_quality() -> tuple:
 
 
     return X, y
+
+
+def climate() -> tuple:
+    data = arff.loadarff("./data/Climate/climate.arff")
+    climate_df = pd.DataFrame(data[0])
     
+    climate_df.replace({"Class": {b"1": 0, b"2": 1}}, inplace=True)
+    climate_df.drop(columns=["V1", "V2", "V4"], inplace=True)
+    
+        
+    climate_df['Class'] = climate_df['Class'].astype('float64')
+    
+    X = climate_df[climate_df.columns.drop("Class")].to_numpy()
+    y = climate_df["Class"].to_numpy()
+    
+    return X, y
