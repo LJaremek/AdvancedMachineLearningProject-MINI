@@ -35,7 +35,7 @@ def heart_attack() -> tuple:
 def japanese_vowels() -> tuple:
     data = arff.loadarff("./data/JapaneseVowels/kdd_JapaneseVowels.arff")
     vowels_df = pd.DataFrame(data[0])
-    vowels_df.replace({"binaryClass": {b"P": 1, b"N": 1}}, inplace=True)
+    vowels_df.replace({"binaryClass": {b"P": 1, b"N": 0}}, inplace=True)
 
     vowels_df['binaryClass'] = vowels_df['binaryClass'].astype('float64')
 
