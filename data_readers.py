@@ -101,3 +101,16 @@ def climate() -> tuple:
     y = climate_df["Class"].to_numpy()
     
     return X, y
+
+
+def diabetes() -> tuple:
+    data = arff.loadarff("./data/diabetes/dataset_37_diabetes.arff")
+    diabetes_df = pd.DataFrame(data[0])
+    
+    diabetes_df.replace({'class': {b'tested_positive': 1, b'tested_negative': 0}}, inplace=True)
+    diabetes_df['class'] = diabetes_df['class'].astype('float64')
+    
+    X = diabetes_df[diabetes_df.columns.drop("class")].to_numpy()
+    y = diabetes_df["class"].to_numpy()
+    
+    return X, y
