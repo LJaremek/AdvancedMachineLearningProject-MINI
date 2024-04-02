@@ -30,6 +30,7 @@ class BaseLogisticRegression:
         """
         self.weights = None
         self.include_interactions = include_interactions
+        self.log_likelihoods=[]
 
     def _add_interactions(self, X: np.array) -> np.array:
         """
@@ -179,6 +180,7 @@ class ADAMLogisticRegression(BaseLogisticRegression):
         m = np.zeros(X.shape[1])
         v = np.zeros(X.shape[1])
 
+        self.log_likelihoods = []
         prev_log_likelihood = -1_000_000  # Initialize with a large negative value
 
         for t in range(1, self.iterations + 1):
@@ -192,6 +194,8 @@ class ADAMLogisticRegression(BaseLogisticRegression):
                 np.log(np.maximum(predictions, 1e-15)) * y
                 + np.log(np.maximum(1 - predictions, 1e-15)) * (1 - y)
             )
+            
+            self.log_likelihoods.append(log_likelihood)
 
             # Check for convergence based on change in log likelihood
             if t > 1 and np.abs(log_likelihood - prev_log_likelihood) < self.threshold:
@@ -252,6 +256,7 @@ class IWLSLogisticRegression(BaseLogisticRegression):
 
         prev_log_likelihood = -1_000_000  # Initialize with a large negative value
 
+        self.log_likelihoods = []
         for iter in range(self.iterations):
             model = np.dot(X, self.weights)
             predictions = sigmoid(model)
@@ -269,7 +274,7 @@ class IWLSLogisticRegression(BaseLogisticRegression):
                     np.log(np.maximum(predictions, 1e-15)) * y
                     + np.log(np.maximum(1 - predictions, 1e-15)) * (1 - y)
                 )
-
+                self.log_likelihoods.append(log_likelihood)
                 # Check for convergence
                 if np.abs(log_likelihood - prev_log_likelihood) < self.threshold:
                     print(f"Optimization converged after {iter + 1} iterations.")
@@ -329,6 +334,7 @@ class SGDLogisticRegression(BaseLogisticRegression):
         self.weights = np.zeros(X.shape[1])
 
         n_samples = X.shape[0]
+        self.log_likelihoods = []
         prev_log_likelihood = -1_000_000  # Initialize with a large value
 
         for iter in range(self.iterations):
@@ -351,6 +357,7 @@ class SGDLogisticRegression(BaseLogisticRegression):
                 np.log(np.maximum(predictions, 1e-15)) * y
                 + np.log(np.maximum(1 - predictions, 1e-15)) * (1 - y)
             )
+            self.log_likelihoods.append(log_likelihood)
 
             # Check for convergence based on change in log likelihood
             if np.abs(log_likelihood - prev_log_likelihood) < self.threshold:
