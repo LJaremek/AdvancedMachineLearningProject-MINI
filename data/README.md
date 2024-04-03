@@ -1,13 +1,1 @@
-# Paulina
-Big data set Ionsphere: https://archive.ics.uci.edu/dataset/52/ionosphere
-
-Big data set Heart attack: https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download&fbclid=IwAR0_VWt_CbNX4bU926klOpQjgtx7hcZjuMKpC6l4HkLExlheMSxRrYgl47U_aem_ASK5B5FDs1QCZW-1BvYLGOjoPghzBw9kjeh2FknB9WU_shv3IH5QblIXlP-6QC-kWWj6vmS9fLpWa2ERZcduEk2h
-
-Small dataset Water Quality: https://www.kaggle.com/datasets/adityakadiwal/water-potability?fbclid=IwAR3ZRUQPjCp3iDWU-rTEU1hU1Wc5oguL1lUqiMTnsBurpt9-9m1p4n5opco_aem_ASJuCKu1LNx4sv-sGpnwcRlfgr99B7EG8V_4m6oCOfXh8Ageevq7zilUtXOznIJ08647ssw-NzZI6tjUyWhPQc1f
-
-# Łukasz
-https://www.kaggle.com/datasets/l3llff/banana
-
-https://www.kaggle.com/datasets/rangalamahesh/bank-churn
-
-https://www.kaggle.com/datasets/nikhil1e9/loan-default
+# Datasets

@@ -11,7 +11,3 @@ data_readers.py - functions for reading datasets
 performance_comparison.ipynb - performance with and without interactions
 performance_experiments.ipynb - creates results.jsons
 ```
-
-### 1.2 - How to start
-
-![experiments results](model_accuracy_comparison.png)
