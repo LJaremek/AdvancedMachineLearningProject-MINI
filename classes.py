@@ -30,7 +30,7 @@ class BaseLogisticRegression:
         """
         self.weights = None
         self.include_interactions = include_interactions
-        self.log_likelihoods=[]
+        self.log_likelihoods = []
 
     def _add_interactions(self, X: np.array) -> np.array:
         """
@@ -83,7 +83,9 @@ class BaseLogisticRegression:
             NotImplementedError: Indicates that the method needs to be
                 implemented by subclasses.
         """
-        raise NotImplementedError("This method should be implemented by subclass.")
+        raise NotImplementedError(
+            "This method should be implemented by subclass."
+            )
 
     def predict_proba(self, X: np.array) -> float:
         """
@@ -181,7 +183,7 @@ class ADAMLogisticRegression(BaseLogisticRegression):
         v = np.zeros(X.shape[1])
 
         self.log_likelihoods = []
-        prev_log_likelihood = -1_000_000  # Initialize with a large negative value
+        prev_log_likelihood = -float("inf")
 
         for t in range(1, self.iterations + 1):
             model = np.dot(X, self.weights)
@@ -194,11 +196,12 @@ class ADAMLogisticRegression(BaseLogisticRegression):
                 np.log(np.maximum(predictions, 1e-15)) * y
                 + np.log(np.maximum(1 - predictions, 1e-15)) * (1 - y)
             )
-            
+
             self.log_likelihoods.append(log_likelihood)
 
             # Check for convergence based on change in log likelihood
-            if t > 1 and np.abs(log_likelihood - prev_log_likelihood) < self.threshold:
+            log_diff = np.abs(log_likelihood - prev_log_likelihood)
+            if t > 1 and log_diff < self.threshold:
                 print(f"Optimization converged after {t} iterations.")
                 break
 
@@ -209,7 +212,9 @@ class ADAMLogisticRegression(BaseLogisticRegression):
             m_hat = m / (1 - self.beta1**t)
             v_hat = v / (1 - self.beta2**t)
 
-            self.weights -= self.learning_rate * m_hat / (np.sqrt(v_hat) + self.epsilon)
+            self.weights -= (
+                self.learning_rate * m_hat / (np.sqrt(v_hat) + self.epsilon)
+            )
 
 
 class IWLSLogisticRegression(BaseLogisticRegression):
@@ -254,7 +259,7 @@ class IWLSLogisticRegression(BaseLogisticRegression):
         X = self._prepare_features(X)
         self.weights = np.zeros(X.shape[1])
 
-        prev_log_likelihood = -1_000_000  # Initialize with a large negative value
+        prev_log_likelihood = -float("inf")
 
         self.log_likelihoods = []
         for iter in range(self.iterations):
@@ -266,6 +271,7 @@ class IWLSLogisticRegression(BaseLogisticRegression):
                 H_inv = np.linalg.inv(
                     XW @ X + np.finfo(float).eps * np.eye(X.shape[1])
                 )  # Adding eps to prevent singularization
+
                 gradient = X.T @ (y - predictions)
                 self.weights += H_inv @ gradient
 
@@ -276,8 +282,12 @@ class IWLSLogisticRegression(BaseLogisticRegression):
                 )
                 self.log_likelihoods.append(log_likelihood)
                 # Check for convergence
-                if np.abs(log_likelihood - prev_log_likelihood) < self.threshold:
-                    print(f"Optimization converged after {iter + 1} iterations.")
+
+                log_diff = np.abs(log_likelihood - prev_log_likelihood)
+                if log_diff < self.threshold:
+                    print(
+                        f"Optimization converged after {iter + 1} iterations."
+                        )
                     break
 
                 prev_log_likelihood = log_likelihood
@@ -339,8 +349,8 @@ class SGDLogisticRegression(BaseLogisticRegression):
 
         for iter in range(self.iterations):
             for i in range(0, n_samples, self.batch_size):
-                X_batch = X[i : i + self.batch_size]
-                y_batch = y[i : i + self.batch_size]
+                X_batch = X[i: i + self.batch_size]
+                y_batch = y[i: i + self.batch_size]
 
                 model = np.dot(X_batch, self.weights)
                 predictions = sigmoid(model)

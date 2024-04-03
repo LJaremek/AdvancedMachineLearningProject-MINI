@@ -5,9 +5,13 @@
 ### 1.1 - Files
 ```
 classes.py - ADAM, IWLS and SGD implementation
-main.py - run simple experiments and comparing models
-model_accuracy_comparison.png - models comparation
+covergance_analysis.ipynb - covergance analuysis
+data_processing.ipynb - cleaning data
+data_readers.py - functions for reading datasets
+performance_comparison.ipynb - performance with and without interactions
+performance_experiments.ipynb - creates results.jsons
 ```
 
-### 1.2 - Model comparations
+### 1.2 - How to start
+
 ![experiments results](model_accuracy_comparison.png)

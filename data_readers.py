@@ -4,7 +4,6 @@ import numpy as np
 
 
 def ionosphere() -> tuple:
-    pd.read_csv
     ionosphere_data = pd.read_csv(
         "./data/ionosphere/ionsphere_clean.data", header=None, index_col=None
     ).to_numpy()
@@ -16,7 +15,9 @@ def ionosphere() -> tuple:
 
 
 def water_quality() -> tuple:
-    water_data = pd.read_csv("./data/WaterQuality/water_potability_clean.csv").to_numpy()
+    water_data = pd.read_csv(
+        "./data/WaterQuality/water_potability_clean.csv"
+        ).to_numpy()
     water_data = water_data[~np.isnan(water_data).any(axis=1)]
     X_water = water_data[:, :-1].astype(float)
     y_water = water_data[:, -1].astype(int)
@@ -47,9 +48,9 @@ def japanese_vowels() -> tuple:
 
 def banana_quality() -> tuple:
     banana_df = pd.read_csv("data/banana_quality/banana_quality.csv")
-    banana_df.replace({'Quality': {'Good': 1, 'Bad': 0}}, inplace=True)
+    banana_df.replace({"Quality": {"Good": 1, "Bad": 0}}, inplace=True)
 
-    banana_df['Quality'] = banana_df['Quality'].astype('float64')
+    banana_df["Quality"] = banana_df["Quality"].astype("float64")
 
     X = banana_df[banana_df.columns.drop("Quality")].to_numpy()
     y = banana_df["Quality"].to_numpy()
@@ -64,7 +65,7 @@ def climate() -> tuple:
     climate_df.replace({"Class": {b"1": 0, b"2": 1}}, inplace=True)
     climate_df.drop(columns=["V1", "V2", "V4"], inplace=True)
 
-    climate_df['Class'] = climate_df['Class'].astype('float64')
+    climate_df["Class"] = climate_df["Class"].astype("float64")
 
     X = climate_df[climate_df.columns.drop("Class")].to_numpy()
     y = climate_df["Class"].to_numpy()
@@ -76,9 +77,9 @@ def diabetes() -> tuple:
     data = arff.loadarff("./data/diabetes/dataset_37_diabetes.arff")
     diabetes_df = pd.DataFrame(data[0])
 
-    diabetes_df.replace({'class': {b'tested_positive': 1, 
-                                   b'tested_negative': 0}}, inplace=True)
-    diabetes_df['class'] = diabetes_df['class'].astype('float64')
+    diabetes_df.replace({"class": {b"tested_positive": 1,
+                                   b"tested_negative": 0}}, inplace=True)
+    diabetes_df["class"] = diabetes_df["class"].astype("float64")
 
     X = diabetes_df[diabetes_df.columns.drop("class")].to_numpy()
     y = diabetes_df["class"].to_numpy()
@@ -90,11 +91,14 @@ def biodegradable() -> tuple:
     data = arff.loadarff("data/biodegradable/phpGUrE90.arff")
     biodeg_df = pd.DataFrame(data[0])
 
-    biodeg_df.replace({'Class': {b'2': 0, b'1': 1}}, inplace=True)
-    biodeg_df['Class'] = biodeg_df['Class'].astype('float64')
+    biodeg_df.replace({"Class": {b"2": 0, b"1": 1}}, inplace=True)
+    biodeg_df["Class"] = biodeg_df["Class"].astype("float64")
 
-    biodeg_df.drop(columns=["V11", "V15", "V34", "V38", "V39",
-                            "V27", "V7", "V10", "V17", "V29"], inplace=True)
+    biodeg_df.drop(
+        columns=["V11", "V15", "V34", "V38", "V39",
+                 "V27", "V7", "V10", "V17", "V29"],
+        inplace=True
+    )
 
     X = biodeg_df[biodeg_df.columns.drop("Class")].to_numpy()
     y = biodeg_df["Class"].to_numpy()
@@ -107,9 +111,9 @@ def plates() -> tuple:
     plates_df = pd.DataFrame(data[0])
 
     plates_df.replace({"Class": {b"0": 0, b"1": 1}}, inplace=True)
-    plates_df['Class'] = plates_df['Class'].astype('float64')   
+    plates_df['Class'] = plates_df["Class"].astype("float64")
 
-    plates_df.drop(columns=["V5", "V6", "V1", "V3", "V10", "V22", 
+    plates_df.drop(columns=["V5", "V6", "V1", "V3", "V10", "V22",
                             "V23", "V12", "V21", "V24"], inplace=True)
 
     X = plates_df[plates_df.columns.drop("Class")].to_numpy()
