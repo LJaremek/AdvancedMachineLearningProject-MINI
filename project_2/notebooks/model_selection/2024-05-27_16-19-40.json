@@ -1,0 +1,40 @@
+{
+    "RandomForest": {
+        "best_score": 0.6462381266733763,
+        "best_params": {
+            "max_depth": 20,
+            "min_samples_split": 38,
+            "n_estimators": 200
+        },
+        "recall": 0.636317907444668,
+        "accuracy": 0.655,
+        "test_recall": 0.6633858267716536,
+        "test_accuracy": 0.656
+    },
+    "XGBoost": {
+        "best_score": 0.6235251089983328,
+        "best_params": {
+            "learning_rate": 0.05269226912814583,
+            "max_depth": 3,
+            "n_estimators": 67,
+            "subsample": 0.5
+        },
+        "recall": 0.6237424547283702,
+        "accuracy": 0.6515,
+        "test_recall": 0.6299212598425197,
+        "test_accuracy": 0.656
+    },
+    "XGBRF": {
+        "best_score": 0.5571483001249838,
+        "best_params": {
+            "learning_rate": 0.1,
+            "max_depth": 9,
+            "n_estimators": 193,
+            "subsample": 0.5
+        },
+        "recall": 0.5563380281690141,
+        "accuracy": 0.64075,
+        "test_recall": 0.7007874015748031,
+        "test_accuracy": 0.622
+    }
+}
