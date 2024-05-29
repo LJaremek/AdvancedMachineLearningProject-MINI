@@ -1,0 +1,61 @@
+AML - Project 2
+
+8 - do wyjebania
+100 - raczej cenne
+101 - raczej cenne,chociaz mniej cenne niz 100
+102 - ja wyzej
+103
+105 - cenne w chuj
+
+[8, 100, 101, 102, 103, 105] -> godność
+RandomForest 68
+XGBRF 68
+XGBoost najlepsze okolo 71 %
+
+[100, 101, 102, 103, 105] -> mała zmiana
+RandomForest 68
+XGBRF 68
+XGBoost najlepsze okolo 71 - 73 %
+
+
+[8, 100, 101, 102, 103] -> DUŻA STRATA, 
+RandomForest 63
+XGBRF 63
+XGBoost tylko koło 67
+
+[101, 102, 103, 105] -> spora strata
+RandomForest 63
+XGBRF 62
+XGBoost 66
+
+[100, 102, 103, 105] -> spora strata, ale xgboost bez tragedii
+RandomForest 62
+XGBRF 63
+XGBoost 68
+
+[100, 101, 103, 105] -> spora strata, ale xgboost bez tragedii
+RandomForest 63
+XGBRF 63
+XGBoost 68
+
+[100, 101, 102, 105] -> spora strata, ale xgboost bez tragedii
+RandomForest 63
+XGBRF 63
+XGBoost 68
+
+
+[101, 103, 105] -> mega bieda bez 100 i 102
+RF 57
+XGBRG 57
+XGBoost 60
+
+[101, 102, 103, 105]
+RF 63
+XGBRF 63
+XGBoost 66
+
+
+[100, 102, 103, 105]
+RF 62
+XGBRF 63
+XGBoost 68
