@@ -1,3 +1,4 @@
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 
@@ -7,6 +8,7 @@ TOP_RECORDS = int(TEST_SIZE*0.2)
 
 def calculate_money(
         columns_indices: list[int],
+        model=None,
         x_data: np.array = None,
         y_data: np.array = None,
         n: int = 5
@@ -20,24 +22,18 @@ def calculate_money(
         y_train_path = "../data/y_train.txt"
         y_data = np.loadtxt(y_train_path, delimiter=" ")
 
+    if model is None:
+        model = RandomForestClassifier(n_estimators=100)
+
     x_data = x_data[:, columns_indices]
 
     money = []
     for _ in range(n):
-        random_indices = np.random.choice(
-            len(x_data), TEST_SIZE, replace=False
+
+        x_train, x_test, y_train, y_test = train_test_split(
+            x_data, y_data, test_size=0.2
             )
 
-        mask = np.zeros(len(x_data), dtype=bool)
-        mask[random_indices] = True
-
-        x_train = x_data[~mask]
-        x_test = x_data[mask]
-
-        y_train = y_data[~mask]
-        y_test = y_data[mask]
-
-        model = RandomForestClassifier(n_estimators=100)
         model.fit(x_train, y_train)
 
         # Type TOP_RECORDS the best records
@@ -47,9 +43,11 @@ def calculate_money(
         y_pred[top_indices] = 1
 
         num_correct = np.sum((y_test == 1) & (y_pred == 1))
-        profit = num_correct * 20 - len(columns_indices) * 200
-        scaled_profit = profit * (1_000 / TOP_RECORDS)
+        profit = (
+            (num_correct * 10) * (1_000 / TOP_RECORDS) -
+            len(columns_indices) * 200
+        )
 
-        money.append(scaled_profit)
+        money.append(profit)
 
     return sum(money)/n
