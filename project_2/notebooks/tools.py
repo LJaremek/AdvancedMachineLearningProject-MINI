@@ -1,17 +1,20 @@
 from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier, XGBRFClassifier
 import numpy as np
 from sklearn.model_selection import train_test_split
 
 TEST_SIZE = 1000
-TOP_RECORDS = int(TEST_SIZE*0.2)
+FACTOR = 0.2
+TOP_RECORDS = int(TEST_SIZE*FACTOR)
 
 
 def calculate_money(
-        model,
         columns_indices: list[int],
         x_data: np.array = None,
         y_data: np.array = None,
-        n: int = 5
+        n: int = 5,
+        model_name: str = "rf",
+        model_params: dict = None
         ) -> float:
 
     if x_data is None:
@@ -22,12 +25,26 @@ def calculate_money(
         y_train_path = "../data/y_train.txt"
         y_data = np.loadtxt(y_train_path, delimiter=" ")
 
+    if model_params is None:
+        model_params = {"n_esmitators": 100}
+
     x_data = x_data[:, columns_indices]
 
     money = []
     for _ in range(n):
-        
-        x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.2, random_state=42)
+
+        x_train, x_test, y_train, y_test = train_test_split(
+            x_data, y_data, test_size=FACTOR
+            )
+
+        if model_name == "rf":
+            model = RandomForestClassifier(**model_params)
+        elif model_name == "xgb":
+            model = XGBClassifier(**model_params)
+        elif model_name == "xgbrf":
+            model = XGBRFClassifier(**model_params)
+        else:
+            raise Exception(f"Unknown model: {model}")
 
         model.fit(x_train, y_train)
 
@@ -38,7 +55,7 @@ def calculate_money(
         y_pred[top_indices] = 1
 
         num_correct = np.sum((y_test == 1) & (y_pred == 1))
-        profit = (num_correct * 10) * (1_000 / TOP_RECORDS) - len(columns_indices) * 200
+        profit = (num_correct * 10) * (TEST_SIZE / TOP_RECORDS) - len(columns_indices) * 200
 
         money.append(profit)
 
