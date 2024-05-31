@@ -1,3 +1,4 @@
+
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier, XGBRFClassifier
 import numpy as np
@@ -26,7 +27,7 @@ def calculate_money(
         y_data = np.loadtxt(y_train_path, delimiter=" ")
 
     if model_params is None:
-        model_params = {"n_esmitators": 100}
+        model_params = {"n_estimators": 100}
 
     x_data = x_data[:, columns_indices]
 

@@ -1,0 +1,18 @@
+Method: Boruta + RFE + Correlation
+Selected Features: [8, 100, 101, 102, 105]
+------------------------------
+Method: RFE + Boruta + Correlation
+Selected Features: [100, 101, 102, 103, 105]
+------------------------------
+Method: RFE + Correlation
+Selected Features: [100, 101, 102, 103, 105]
+------------------------------
+Method: Boruta + Correlation
+Selected Features: [0, 1, 2, 3, 4, 5, 7, 8, 9, 100, 101, 102, 103, 104, 105]
+------------------------------
+Method: Boruta + Lasso
+Selected Features: [105]
+------------------------------
+Method: Boruta + RFE + Lasso
+Selected Features: [105]
+------------------------------
