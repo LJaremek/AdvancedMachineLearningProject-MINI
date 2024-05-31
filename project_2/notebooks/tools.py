@@ -3,6 +3,8 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier, XGBRFClassifier
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
 
 TEST_SIZE = 1000
 FACTOR = 0.2
@@ -44,8 +46,12 @@ def calculate_money(
             model = XGBClassifier(**model_params)
         elif model_name == "xgbrf":
             model = XGBRFClassifier(**model_params)
+        elif model_name == 'nb':
+            model = GaussianNB()
+        elif model_name == 'logistic_regression':
+            model = LogisticRegression(**model_params)
         else:
-            raise Exception(f"Unknown model: {model}")
+            raise Exception(f"Unknown model: {model_name}")
 
         model.fit(x_train, y_train)
 
